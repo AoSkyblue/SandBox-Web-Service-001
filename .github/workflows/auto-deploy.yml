@@ -26,7 +26,3 @@ jobs:
             # Dockerイメージのビルドとコンテナの再起動
             # (-d: バックグラウンド, --build: 変更があればビルドし直す)
             docker compose up -d --build
-            
-            # (オプション) Laravelのキャッシュクリアやマイグレーション
-            # docker compose exec -T app php artisan optimize:clear
-            # docker compose exec -T app php artisan migrate --force
