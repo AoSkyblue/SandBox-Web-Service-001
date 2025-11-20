@@ -24,7 +24,7 @@ while true; do
             --email $EMAIL \
             --agree-tos \
             --no-eff-email \
-            --force-renewal
+            --non-interactive
             
         # 取得成功したらリロードトリガーを作成
         if [ $? -eq 0 ]; then
