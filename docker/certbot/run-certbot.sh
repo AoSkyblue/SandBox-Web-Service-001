@@ -21,9 +21,8 @@ while true; do
         
         certbot certonly --webroot -w $WEBROOT \
             -d $DOMAIN \
-            --email $EMAIL \
+            --register-unsafely-without-email \
             --agree-tos \
-            --no-eff-email \
             --non-interactive
             
         # 取得成功したらリロードトリガーを作成
