@@ -2,7 +2,6 @@
 
 # ドメイン設定
 DOMAIN="aoshima-vps.tr-kdev.com"
-EMAIL="info@example.com" # 必要に応じて変更
 WEBROOT="/var/www/certbot"
 TRIGGER_FILE="/var/www/certbot/nginx_reload_trigger"
 
