@@ -11,10 +11,17 @@ RUN apt-get update && \
     apt-get install -y git unzip libzip-dev libicu-dev libonig-dev && \
     docker-php-ext-install intl pdo_mysql zip bcmath
 
-    # ローカルで作成したphp.iniをDockerコンテナ内にコピー
-    # COPY ローカルパス コンテナパス
-    # ローカルパスはDockerfileからではなく、docker buildコマンドを実行したディレクトリ(composer.yml)からの相対パスで指定
+# ローカルで作成したphp.iniをDockerコンテナ内にコピー
+# COPY ローカルパス コンテナパス
+# ローカルパスはDockerfileからではなく、docker buildコマンドを実行したディレクトリ(composer.yml)からの相対パスで指定
+ARG APP_ENV=local
 COPY ./docker/app/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/app/php.ini.prod /tmp/php.ini.prod
+
+RUN if [ "$APP_ENV" = "production" ]; then \
+    cp /tmp/php.ini.prod /usr/local/etc/php/php.ini; \
+    fi && \
+    rm /tmp/php.ini.prod
 
 # Laravelを使うためComposerをインストール
 # マルチステージビルドという方法でインストール

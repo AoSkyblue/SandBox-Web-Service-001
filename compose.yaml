@@ -4,6 +4,8 @@ services:
       #ビルドコンテキストの設定
       context: .
       dockerfile: ./docker/app/Dockerfile
+      args:
+        - APP_ENV=${APP_ENV:-local}
     volumes:
       - ./src/:/app #ホストのsrcディレクトリをコンテナの/appにバインドマウント
 
@@ -28,11 +30,11 @@ services:
     ports:
       - 3306:3306 #ホストの3306ポートをコンテナの3306ポートにマッピング
     environment:
-      MYSQL_DATABASE: MYSQL_DATABASE
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
-      TZ: 'Asia/Tokyo'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: ${TZ}
     volumes:
       - mysql-volume:/var/lib/mysql
 

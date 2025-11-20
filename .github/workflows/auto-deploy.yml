@@ -24,6 +24,16 @@ jobs:
             # 最新コードを取得
             git pull origin main
             
+            # .envファイルの生成（GitHub Secretsから）
+            cat > .env << EOF
+            APP_ENV=${{ secrets.APP_ENV }}
+            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
+            MYSQL_USER=${{ secrets.MYSQL_USER }}
+            MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
+            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+            TZ=${{ secrets.TZ }}
+            EOF
+            
             # Dockerイメージのビルドとコンテナの再起動
             # (-d: バックグラウンド, --build: 変更があればビルドし直す)
             docker compose up -d --build
