@@ -5,6 +5,11 @@ DOMAIN="${DOMAIN:?ERROR: DOMAIN environment variable is not set}"
 CERT_DIR="/etc/letsencrypt/live/$DOMAIN"
 TRIGGER_FILE="/var/www/certbot/nginx_reload_trigger"
 
+# default.conf の環境変数を展開
+echo "default.conf の環境変数を展開しています..."
+cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.template
+envsubst '${DOMAIN}' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+
 # 証明書がない場合、ダミー証明書を作成
 if [ ! -f "$CERT_DIR/fullchain.pem" ]; then
     echo "$DOMAIN のダミー証明書を作成しています..."
