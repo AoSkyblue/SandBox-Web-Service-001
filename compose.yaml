@@ -9,10 +9,27 @@ services:
     volumes:
       - ./src/:/app #ホストのsrcディレクトリをコンテナの/appにバインドマウント
 
-  web:
+  # TODO: Web1とWeb2のコンテナを分けてポートも分ける（Web1のプロキシからWeb2のポートにアクセスするように）
+  web1:
     build:
       context: .
-      dockerfile: ./docker/web/Dockerfile
+      dockerfile: ./docker/web1/Dockerfile
+    ports:
+      - 80:80 #ホストの80ポートをコンテナの80ポートにマッピング
+      - 443:443
+    depends_on:
+      - app #webサービスはappサービスに依存
+    environment:
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - ./src/:/app #ホストのsrcディレクトリをコンテナの/appにバインドマウント
+      - certs-data:/etc/letsencrypt
+      - certbot-webroot:/var/www/certbot
+
+  web2:
+    build:
+      context: .
+      dockerfile: ./docker/web2/Dockerfile
     ports:
       - 80:80 #ホストの80ポートをコンテナの80ポートにマッピング
       - 443:443
