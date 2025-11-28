@@ -16,7 +16,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: 32766
+          port: 22
           script: |
             # プロジェクトのフォルダに移動
             cd ${{ secrets.PROJECT_PATH }}
