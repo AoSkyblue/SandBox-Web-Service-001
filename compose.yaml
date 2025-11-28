@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: ./docker/db/Dockerfile
     ports:
-      - 3306:3306 #ホストの3306ポートをコンテナの3306ポートにマッピング
+      - 3307:3306 #ホストの3306ポートをコンテナの3306ポートにマッピング
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
