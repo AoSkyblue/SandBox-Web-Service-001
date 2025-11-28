@@ -9,8 +9,8 @@ services:
     depends_on:
       - db #appサービスはdbサービスに依存
     volumes:
-      - ./src/1/:/app1 #ホストのsrcディレクトリをコンテナの/appにバインドマウント
-      - ./src/2/:/app2 #ホストのsrcディレクトリをコンテナの/appにバインドマウント
+      - ./src/1/:/app #ホストのsrcディレクトリをコンテナの/appにバインドマウント
+      - ./src/2/:/app2
 
   web1:
     build:
@@ -38,7 +38,7 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
     volumes:
-      - ./src/2/:/app #ホストのsrcディレクトリをコンテナの/appにバインドマウント
+      - ./src/2/:/app2 #ホストのsrcディレクトリをコンテナの/appにバインドマウント
 
   db:
     build:
