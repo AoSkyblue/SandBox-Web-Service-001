@@ -45,8 +45,6 @@ jobs:
               docker rm $(docker ps -aq)
             fi
 
-            docker compose down -v
-
             docker compose up -d --build --remove-orphans 
             
             # (オプション) Laravelのキャッシュクリアやマイグレーション
