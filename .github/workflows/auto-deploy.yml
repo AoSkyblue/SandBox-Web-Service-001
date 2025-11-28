@@ -37,7 +37,16 @@ jobs:
             
             # Dockerイメージのビルドとコンテナの再起動
             # (-d: バックグラウンド, --build: 変更があればビルドし直す)
+            # 全コンテナの停止と削除（ポート競合回避のため）
+            if [ "$(docker ps -q)" ]; then
+              docker stop $(docker ps -q)
+            fi
+            if [ "$(docker ps -aq)" ]; then
+              docker rm $(docker ps -aq)
+            fi
+
             docker compose down -v
+
             docker compose up -d --build --remove-orphans 
             
             # (オプション) Laravelのキャッシュクリアやマイグレーション
