@@ -6,6 +6,8 @@ services:
       dockerfile: ./docker/app/Dockerfile
       args:
         - APP_ENV=${APP_ENV:-local}
+    depends_on:
+      - db #appサービスはdbサービスに依存
     volumes:
       - ./src/1/:/app1 #ホストのsrcディレクトリをコンテナの/appにバインドマウント
       - ./src/2/:/app2 #ホストのsrcディレクトリをコンテナの/appにバインドマウント
@@ -57,6 +59,8 @@ services:
     image: certbot/certbot
     environment:
       - DOMAIN=${DOMAIN}
+    depends_on:
+      - web1 #certbotサービスはwebサービスに依存
     volumes:
       - certs-data:/etc/letsencrypt
       - certbot-webroot:/var/www/certbot
